@@ -1,0 +1,18 @@
+.listBox{
+
+  }
+  @media screen and (max-width: 480px) {
+    .listBox{
+      width: 100%;
+    }
+  }
+  .websiteList{
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 480px;
+    padding: 8px 12px;  
+    margin-bottom: 10px;
+    text-align: center;
+    margin: 20px auto 10px;
+  }
