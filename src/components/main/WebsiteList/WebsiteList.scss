@@ -1,12 +1,9 @@
-.listBox{
-
-  }
-  @media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
     .listBox{
-      width: 100%;
+        width: 100%;
     }
-  }
-  .websiteList{
+}
+.websiteList{
     display: flex; 
     flex-direction: row;
     flex-wrap: wrap;
@@ -15,4 +12,4 @@
     margin-bottom: 10px;
     text-align: center;
     margin: 20px auto 10px;
-  }
+}
