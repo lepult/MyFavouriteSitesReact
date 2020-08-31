@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import './WebsiteListItem.scss';
 
+// eslint-disable-next-line react/prop-types
 function WebsiteListItem({ name, iconId, linkId }) {
     const [icon, setIcon] = useState(152342);
 
@@ -11,7 +12,7 @@ function WebsiteListItem({ name, iconId, linkId }) {
             await fetch(`https://sub60.tobit.com/l/${iconId}?size=65`);
             setIcon(iconId);
         } catch {
-            console.log("can't find a website Icon");
+            console.log("Can't find a website Icon");
         }
     };
     const openUrl = () => {
