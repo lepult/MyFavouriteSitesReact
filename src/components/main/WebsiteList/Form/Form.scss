@@ -1,0 +1,19 @@
+.formContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.formHeader{
+    width: 100%;
+}
+.formItem{
+    width: 100%;
+}
+.formItemPLZ{
+    width: 30% !important
+}
+.formItemStadt{
+    width: 65% !important;
+    margin-left: auto;
+}
