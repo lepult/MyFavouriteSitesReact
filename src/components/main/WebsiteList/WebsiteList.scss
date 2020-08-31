@@ -3,6 +3,9 @@
         width: 100%;
     }
 }
+.websiteContainer{
+    text-align: center;
+}
 .websiteList{
     display: flex; 
     flex-direction: row;
@@ -16,6 +19,6 @@
 .extendButton{
     margin: 0px auto;
 }
-.hidden{
-    display: none;
+.waitCursor{
+    margin: 50px auto 0px;
 }
