@@ -1,0 +1,38 @@
+.websiteIconContainer{
+    width: 25%;
+    //background-color: red;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    position: relative;
+  }
+  .websiteIconLink{
+    width: 65px;
+    height: 65px;
+    margin: 0px auto;
+    border-bottom: none !important;
+    text-align: center;
+    height: fit-content
+  }
+  .websiteIcon{
+    width: 65px;
+    height: 65px;
+    background: white;
+    margin: 0px auto;
+    background-size: contain;
+    //animation: void 1s ease-in both;
+  }
+  .websiteName{
+    width: 90%;
+    height: 16px;
+    font-size: 13px;
+    line-height: 0.75;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+  }
+  

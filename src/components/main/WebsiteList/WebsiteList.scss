@@ -1,0 +1,24 @@
+@media screen and (max-width: 480px) {
+    .listBox{
+        width: 100%;
+    }
+}
+.websiteContainer{
+    text-align: center;
+}
+.websiteList{
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 480px;
+    padding: 8px 12px;  
+    margin-bottom: 10px;
+    text-align: center;
+    margin: 20px auto 10px;
+}
+.extendButton{
+    margin: 0px auto;
+}
+.waitCursor{
+    margin: 50px auto 0px;
+}
