@@ -13,6 +13,24 @@ function Form() {
     const [link, setLink] = useState();
     const [comment, setComment] = useState();
 
+    function submitForm() {
+        chayns.intercom.sendMessageToPage({
+            text: `Name: ${firstName} ${lastName} \nEmail: ${email} \nAdresse: ${street} ${areaCode} ${city} \nSeite: ${link} \n${comment}`,
+        }).then((data) => {
+            if (data.status === 200) {
+                chayns.dialog.alert('', 'Wir haben Deine Anfrage erhalten.').then(console.log);
+            }
+            setFirstName('');
+            setLastName('');
+            setAreaCode('');
+            setCity('');
+            setStreet('');
+            setEmail('');
+            setLink('');
+            setComment('');
+        });
+    }
+
     return (
         <Accordion head="Deine Seite fehlt">
             <form className="accordion__content formContainer">
@@ -90,6 +108,10 @@ function Form() {
                     placeholder="Anmerkungen"
                     name="comment"
                 />
+
+                {firstName && lastName && email && link
+                    ? <Button className="formButton" onClick={submitForm}>Senden!</Button>
+                    : <Button className="formButton grey">Senden!</Button>}
             </form>
         </Accordion>
 
