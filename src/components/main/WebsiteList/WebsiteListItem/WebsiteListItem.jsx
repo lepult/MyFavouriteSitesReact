@@ -10,7 +10,6 @@ function WebsiteListItem({ name, iconId, linkId }) {
     const fetchIcon = async () => {
         try {
             const response = await fetch(`https://sub60.tobit.com/l/${iconId}?size=65`);
-            console.log(response.status);
             if (response.status === 200) {
                 setIcon(iconId);
             }
