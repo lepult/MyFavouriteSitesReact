@@ -18,7 +18,7 @@ function Form() {
             text: `Name: ${firstName} ${lastName} \nEmail: ${email} \nAdresse: ${street} ${areaCode} ${city} \nSeite: ${link} \n${comment}`,
         }).then((data) => {
             if (data.status === 200) {
-                chayns.dialog.alert('', 'Wir haben Deine Anfrage erhalten.').then(console.log);
+                chayns.dialog.alert('', 'Wir haben Deine Anfrage erhalten.');
 
                 setAreaCode('');
                 setCity('');
@@ -31,7 +31,6 @@ function Form() {
     }
     function loginAndSubmit() {
         chayns.addAccessTokenChangeListener(() => {
-            console.log('login successful');
             submitForm();
         });
         chayns.login();

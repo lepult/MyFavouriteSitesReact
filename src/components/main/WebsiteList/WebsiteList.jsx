@@ -6,15 +6,20 @@ import WebsiteListItem from './WebsiteListItem/WebsiteListItem';
 import './WebsiteList.scss';
 
 // eslint-disable-next-line react/prop-types
-function WebsiteList({ setIsListLoading, isListLoading }) {
+function WebsiteList({ setIsListLoading, isListLoading, searchString }) {
     const [list, setList] = useState([]);
     const [isListExtendable, setIsListExtendable] = useState(true);
+    const [isFirstUpdate, setIsFirstUpdate] = useState(true);
 
-    const fetchSitesData = async (skip = 0, take = 21) => {
+    const fetchSitesData = async (skip, isNewSearchString) => {
+        // Clears the List if there is a new Search String
+        if (isNewSearchString) {
+            setList([]);
+        }
         setIsListLoading(true);
 
         try {
-            const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=Ahaus&Skip=${skip}&Take=${take}`);
+            const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchString}&Skip=${skip}&Take=${21}`);
             const json = await response.json();
 
             if (json.Data.length < 21) {
@@ -34,8 +39,16 @@ function WebsiteList({ setIsListLoading, isListLoading }) {
     };
 
     useEffect(() => {
-        fetchSitesData();
+        fetchSitesData(0, false);
     }, []);
+
+    useEffect(() => {
+        if (isFirstUpdate) {
+            setIsFirstUpdate(false);
+        } else {
+            fetchSitesData(0, true);
+        }
+    }, [searchString]);
 
     // const websiteListItems = list.map(() => <WebsiteListItem/>);
 
@@ -54,7 +67,7 @@ function WebsiteList({ setIsListLoading, isListLoading }) {
                 {isListExtendable && !isListLoading && (
                     <Button
                         className="extendButton"
-                        onClick={() => fetchSitesData(list.length)}
+                        onClick={() => fetchSitesData(list.length, false)}
                     >
                         Mehr
                     </Button>
