@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Accordion, TextArea, Button } from 'chayns-components/lib';
 
 import './Form.scss';
@@ -19,17 +19,34 @@ function Form() {
         }).then((data) => {
             if (data.status === 200) {
                 chayns.dialog.alert('', 'Wir haben Deine Anfrage erhalten.').then(console.log);
+
+                setAreaCode('');
+                setCity('');
+                setStreet('');
+                setEmail('');
+                setLink('');
+                setComment('');
             }
-            setFirstName('');
-            setLastName('');
-            setAreaCode('');
-            setCity('');
-            setStreet('');
-            setEmail('');
-            setLink('');
-            setComment('');
         });
     }
+    function loginAndSubmit() {
+        chayns.addAccessTokenChangeListener(() => {
+            console.log('login successful');
+            submitForm();
+        });
+        chayns.login();
+    }
+    function fillInUserData() {
+        if (chayns.env.user.isAuthenticated) {
+            setFirstName(chayns.env.user.firstName);
+            setLastName(chayns.env.user.lastName);
+        }
+    }
+
+    useEffect(() => {
+        fillInUserData();
+    }, []);
+
 
     return (
         <Accordion head="Deine Seite fehlt">
@@ -109,8 +126,11 @@ function Form() {
                     name="comment"
                 />
 
+                {/* eslint-disable-next-line no-nested-ternary */}
                 {firstName && lastName && email && link
-                    ? <Button className="formButton" onClick={submitForm}>Senden!</Button>
+                    ? chayns.env.user.isAuthenticated
+                        ? <Button className="formButton" onClick={submitForm}>Senden!</Button>
+                        : <Button className="formButton" onClick={loginAndSubmit}>Senden!</Button>
                     : <Button className="formButton grey">Senden!</Button>}
             </form>
         </Accordion>
