@@ -5,10 +5,10 @@ import { Button, SmallWaitCursor } from 'chayns-components/lib';
 import WebsiteListItem from './WebsiteListItem/WebsiteListItem';
 import './WebsiteList.scss';
 
-function WebsiteList() {
+// eslint-disable-next-line react/prop-types
+function WebsiteList({ setIsListLoading, isListLoading }) {
     const [list, setList] = useState([]);
     const [isListExtendable, setIsListExtendable] = useState(true);
-    const [isListLoading, setIsListLoading] = useState(false);
 
     const fetchSitesData = async (skip = 0, take = 21) => {
         setIsListLoading(true);

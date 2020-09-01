@@ -9,8 +9,10 @@ function WebsiteListItem({ name, iconId, linkId }) {
 
     const fetchIcon = async () => {
         try {
-            await fetch(`https://sub60.tobit.com/l/${iconId}?size=65`);
-            setIcon(iconId);
+            const response = await fetch(`https://sub60.tobit.com/l/${iconId}?size=65`);
+            if (response.status === 200) {
+                setIcon(iconId);
+            }
         } catch {
             console.log("Can't find a website Icon");
         }
