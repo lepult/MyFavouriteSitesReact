@@ -2,11 +2,11 @@ import { hot } from 'react-hot-loader/root';
 import React, { PureComponent } from 'react';
 
 // Components
-import Headline from './header/headline/Headline';
-import SearchBox from './main/WebsiteList/SearchBox';
-import Intro from './header/intro/Intro';
-import WebsiteList from './main/WebsiteList/WebsiteList';
-import Form from './main/WebsiteList/Form/Form';
+import Headline from './App/Header/Headline';
+import SearchBox from './App/SearchBox/SearchBox';
+import Intro from './App/Header/Intro';
+import WebsiteList from './App/WebsiteList/WebsiteList';
+import Form from './App/Form/Form';
 import './App.scss';
 
 // We use PureComponent instead of Component because it handles the shouldComponentUpdate method for us.
