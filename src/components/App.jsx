@@ -13,7 +13,11 @@ class App extends PureComponent {
         return (
             <>
                 <Headline headline="My Favourite Sites"/>
-                <Intro intro="Hier findest Du eine Übersicht von allen Chayns Website in deiner Umgebung. Deine Seite fehlt hier noch? Sende sie uns mithilfe des Formulars unten."/>
+                <Intro
+                    intro="Hier findest Du eine Übersicht von allen Chayns Website
+                     in deiner Umgebung. Deine Seite fehlt hier noch? Sende sie uns
+                     mithilfe des Formulars unten."
+                />
                 <WebsiteList/>
                 <Form/>
             </>
