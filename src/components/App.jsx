@@ -12,7 +12,7 @@ class App extends PureComponent {
     constructor() {
         super();
         this.state = {
-            isListLoading: false,
+            isListLoading: true,
         };
     }
 
