@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 
 
 import './WebsiteListItem.scss';
 
-// eslint-disable-next-line react/prop-types
 function WebsiteListItem({ name, iconId, linkId }) {
     const [icon, setIcon] = useState(152342);
 
