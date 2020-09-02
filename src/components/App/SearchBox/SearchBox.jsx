@@ -31,7 +31,6 @@ function SearchBox({ setSearchString }) {
                     setNewSearch(value);
                     // setSearchString(value);
                 }}
-                dynamic
             />
             <i
                 className="fal fa-search searchIcon"

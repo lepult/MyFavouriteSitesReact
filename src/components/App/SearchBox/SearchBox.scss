@@ -3,7 +3,7 @@
     height: fit-content;
     display: flex; 
     flex-direction: row; 
-    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.45);
   }
   .searchInputContainer{
     width: fit-content; 
@@ -17,4 +17,5 @@
   .searchInput{
     width: 100%;
     margin-right: 5px;
+    border: none
   }
