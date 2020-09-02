@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 
 import { Button, SmallWaitCursor } from 'chayns-components/lib';
@@ -5,7 +7,6 @@ import { Button, SmallWaitCursor } from 'chayns-components/lib';
 import WebsiteListItem from './WebsiteListItem/WebsiteListItem';
 import './WebsiteList.scss';
 
-// eslint-disable-next-line react/prop-types
 function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, searchString }) {
     const [list, setList] = useState([]);
     const [isListExtendable, setIsListExtendable] = useState(true);

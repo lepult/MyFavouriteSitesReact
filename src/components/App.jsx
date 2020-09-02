@@ -52,9 +52,8 @@ class App extends PureComponent {
                     isListLoading={isListLoading}
                     searchString={searchString}
                 />
-                {!isListLoading || !isInitialLoad
-                    ? <Form isListLoading/>
-                    : null}
+                {(!isListLoading || !isInitialLoad)
+                    && <Form isListLoading/>}
             </>
         );
     }

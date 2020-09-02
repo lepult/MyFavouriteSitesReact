@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Input } from 'chayns-components/lib';
 import './SearchBox.scss';
 
 
-// eslint-disable-next-line react/prop-types
 function SearchBox({ setSearchString }) {
     const [newSearch, setNewSearch] = useState();
     const [myVar, setMyVar] = useState();
