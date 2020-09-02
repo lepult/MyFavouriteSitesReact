@@ -31,11 +31,13 @@ function WebsiteList({ setIsListLoading, isListLoading, searchString }) {
             } else {
                 // removes the 21 item
                 json.Data.length = 20;
+                setIsListExtendable(true);
             }
 
             setList((prevList) => prevList.concat(json.Data));
         } catch (ex) {
             console.log('parsing failed', ex);
+            setIsListExtendable(false);
             setList([]);
         }
 
