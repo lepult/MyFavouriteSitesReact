@@ -14,6 +14,14 @@ function Form() {
     const [comment, setComment] = useState();
 
     function submitForm() {
+        const textName = `Name: ${firstName} ${lastName}`;
+        const textMail = `\nEmail: ${email}`;
+        const textLink = `\nSeite: ${link}`;
+
+        let textCity = null;
+        let testStreet = null;
+        let textComment = null;
+
         chayns.intercom.sendMessageToPage({
             text: `Name: ${firstName} ${lastName} \nEmail: ${email} \nAdresse: ${street} ${areaCode} ${city} \nSeite: ${link} \n${comment}`,
         }).then((data) => {

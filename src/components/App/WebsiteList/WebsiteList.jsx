@@ -6,7 +6,7 @@ import WebsiteListItem from './WebsiteListItem/WebsiteListItem';
 import './WebsiteList.scss';
 
 // eslint-disable-next-line react/prop-types
-function WebsiteList({ setIsListLoading, isListLoading, searchString }) {
+function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, searchString }) {
     const [list, setList] = useState([]);
     const [isListExtendable, setIsListExtendable] = useState(true);
     const [isFirstUpdate, setIsFirstUpdate] = useState(true);
@@ -40,7 +40,7 @@ function WebsiteList({ setIsListLoading, isListLoading, searchString }) {
             setIsListExtendable(false);
             setList([]);
         }
-
+        setIsInitialLoad(false);
         setIsListLoading(false);
     };
 

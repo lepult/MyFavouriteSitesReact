@@ -16,6 +16,7 @@ class App extends PureComponent {
         super();
         this.state = {
             isListLoading: true,
+            isInitialLoad: true,
             searchString: 'Ahaus',
             newSearchString: 'Ahaus',
         };
@@ -29,7 +30,7 @@ class App extends PureComponent {
     }
 
     render() {
-        const { isListLoading, searchString } = this.state;
+        const { isListLoading, isInitialLoad, searchString } = this.state;
 
         return (
             <>
@@ -47,10 +48,11 @@ class App extends PureComponent {
                 />
                 <WebsiteList
                     setIsListLoading={(isSiteListLoading) => this.setState({ isListLoading: isSiteListLoading })}
+                    setIsInitialLoad={(isInitialLoadTrue) => this.setState({ isInitialLoad: isInitialLoadTrue })}
                     isListLoading={isListLoading}
                     searchString={searchString}
                 />
-                {!isListLoading
+                {!isListLoading || !isInitialLoad
                     ? <Form isListLoading/>
                     : null}
             </>
