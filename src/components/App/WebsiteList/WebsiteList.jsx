@@ -11,15 +11,19 @@ function WebsiteList({ setIsListLoading, isListLoading, searchString }) {
     const [isListExtendable, setIsListExtendable] = useState(true);
     const [isFirstUpdate, setIsFirstUpdate] = useState(true);
 
-    const fetchSitesData = async (skip, isNewSearchString) => {
+    const fetchSitesData = async (skip, isNewSearchString, searchStringState) => {
+        setIsListLoading(true);
+
+
         // Clears the List if there is a new Search String
         if (isNewSearchString) {
             setList([]);
         }
-        setIsListLoading(true);
-
+        if (!searchStringState) {
+            searchStringState = 'Ahaus';
+        }
         try {
-            const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchString}&Skip=${skip}&Take=${21}`);
+            const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchStringState}&Skip=${skip}&Take=21`);
             const json = await response.json();
 
             if (json.Data.length < 21) {
@@ -39,14 +43,14 @@ function WebsiteList({ setIsListLoading, isListLoading, searchString }) {
     };
 
     useEffect(() => {
-        fetchSitesData(0, false);
+        fetchSitesData(0, false, searchString);
     }, []);
 
     useEffect(() => {
         if (isFirstUpdate) {
             setIsFirstUpdate(false);
         } else {
-            fetchSitesData(0, true);
+            fetchSitesData(0, true, searchString);
         }
     }, [searchString]);
 
