@@ -14,14 +14,6 @@ function Form() {
     const [comment, setComment] = useState();
 
     function submitForm() {
-        const textName = `Name: ${firstName} ${lastName}`;
-        const textMail = `\nEmail: ${email}`;
-        const textLink = `\nSeite: ${link}`;
-
-        let textCity = null;
-        let testStreet = null;
-        let textComment = null;
-
         chayns.intercom.sendMessageToPage({
             text: `Name: ${firstName} ${lastName} \nEmail: ${email} \nAdresse: ${street} ${areaCode} ${city} \nSeite: ${link} \n${comment}`,
         }).then((data) => {
@@ -49,6 +41,18 @@ function Form() {
             setLastName(chayns.env.user.lastName);
         }
     }
+    function submitButton(onClickEvent, isDisabled) {
+        return (<Button className="formButton" onClick={onClickEvent} disabled={isDisabled}>Senden!</Button>);
+    }
+    const getSubmitButton = () => {
+        if (firstName && lastName && email && link) {
+            if (chayns.env.user.isAuthenticated) {
+                return (submitButton(submitForm, false));
+            }
+            return (submitButton(loginAndSubmit, false));
+        }
+        return (submitButton(submitForm, true));
+    };
 
     useEffect(() => {
         fillInUserData();
@@ -133,12 +137,7 @@ function Form() {
                     name="comment"
                 />
 
-                {/* eslint-disable-next-line no-nested-ternary */}
-                {firstName && lastName && email && link
-                    ? chayns.env.user.isAuthenticated
-                        ? <Button className="formButton" onClick={submitForm}>Senden!</Button>
-                        : <Button className="formButton" onClick={loginAndSubmit}>Senden!</Button>
-                    : <Button className="formButton grey">Senden!</Button>}
+                {getSubmitButton()}
             </form>
         </Accordion>
 
