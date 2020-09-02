@@ -16,6 +16,7 @@ class App extends PureComponent {
         super();
         this.state = {
             isListLoading: true,
+            isInitialLoad: true,
             searchString: 'Ahaus',
             newSearchString: 'Ahaus',
         };
@@ -29,7 +30,7 @@ class App extends PureComponent {
     }
 
     render() {
-        const { isListLoading, searchString } = this.state;
+        const { isListLoading, isInitialLoad, searchString } = this.state;
 
         return (
             <>
@@ -42,15 +43,16 @@ class App extends PureComponent {
                 </div>
                 <Intro
                     intro="Hier findest Du eine Übersicht von allen Chayns Website
-                     in deiner Umgebung. Deine Seite fehlt hier noch? Sende sie uns
-                     mithilfe des Formulars unten."
+                    in deiner Umgebung. Deine Seite fehlt hier noch? Sende sie uns
+                    mithilfe des Formulars unten."
                 />
                 <WebsiteList
                     setIsListLoading={(isSiteListLoading) => this.setState({ isListLoading: isSiteListLoading })}
+                    setIsInitialLoad={(isInitialLoadTrue) => this.setState({ isInitialLoad: isInitialLoadTrue })}
                     isListLoading={isListLoading}
                     searchString={searchString}
                 />
-                {!isListLoading
+                {!isListLoading || !isInitialLoad
                     ? <Form isListLoading/>
                     : null}
             </>

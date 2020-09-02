@@ -16,6 +16,10 @@
     text-align: center;
     margin: 20px auto 10px;
 }
+.websiteList:empty
+{
+    display:none;
+}
 .extendButton{
     margin: 0px auto;
 }
