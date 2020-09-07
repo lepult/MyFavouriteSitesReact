@@ -24,18 +24,18 @@ function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, search
             searchStringState = 'Ahaus';
         }
         try {
-            const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchStringState}&Skip=${skip}&Take=21`);
+            const response = await fetch(`https://chayns2.tobit.com/SiteSearchApi/location/search/${searchStringState}/?skip=${skip}&take=21`);
             const json = await response.json();
 
-            if (json.Data.length < 21) {
+            if (json.length < 21) {
                 setIsListExtendable(false);
             } else {
                 // removes the 21 item
-                json.Data.length = 20;
+                json.length = 20;
                 setIsListExtendable(true);
             }
 
-            setList((prevList) => prevList.concat(json.Data));
+            setList((prevList) => prevList.concat(json));
         } catch (ex) {
             console.log('parsing failed', ex);
             setIsListExtendable(false);
@@ -66,7 +66,7 @@ function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, search
                 {list.map((e) => (
                     <WebsiteListItem
                         key={e.siteId}
-                        name={e.appstoreName}
+                        name={e.locationName}
                         linkId={e.siteId}
                         iconId={e.locationId}
                     />
@@ -74,7 +74,7 @@ function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, search
                 {isListExtendable && !isListLoading && (
                     <Button
                         className="extendButton"
-                        onClick={() => fetchSitesData(list.length, false)}
+                        onClick={() => fetchSitesData(list.length, false, searchString)}
                     >
                         Mehr
                     </Button>
