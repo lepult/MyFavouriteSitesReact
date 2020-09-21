@@ -20,6 +20,7 @@ function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, search
         if (isNewSearchString) {
             setList([]);
         }
+
         if (!searchStringState) {
             searchStringState = 'Ahaus';
         }
@@ -44,10 +45,6 @@ function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, search
         setIsInitialLoad(false);
         setIsListLoading(false);
     };
-
-    useEffect(() => {
-        fetchSitesData(0, false, searchString);
-    }, []);
 
     useEffect(() => {
         if (isFirstUpdate) {
