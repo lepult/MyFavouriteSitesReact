@@ -6,51 +6,24 @@ import { Button, SmallWaitCursor } from 'chayns-components/lib';
 
 import WebsiteListItem from './WebsiteListItem/WebsiteListItem';
 import './WebsiteList.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadSites } from '../../../redux-modules/actions/siteListActions';
 
-function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, searchString }) {
-    const [list, setList] = useState([]);
-    const [isListExtendable, setIsListExtendable] = useState(true);
+function WebsiteList() {
+    const sitesList = useSelector((state) => state.sites.list);
+    const searchString = useSelector((state) => state.sites.searchString);
+    const isExtendable = useSelector((state) => state.sites.isExtendable);
+    const isLoading = useSelector((state) => state.sites.isLoading);
+    const dispatch = useDispatch();
+
+    const [extendedCounter, setExtendedCounter] = useState(1);
     const [isFirstUpdate, setIsFirstUpdate] = useState(true);
-
-    const fetchSitesData = async (skip, isNewSearchString, searchStringState) => {
-        setIsListLoading(true);
-
-
-        // Clears the List if there is a new Search String
-        if (isNewSearchString) {
-            setList([]);
-        }
-
-        if (!searchStringState) {
-            searchStringState = 'Ahaus';
-        }
-        try {
-            const response = await fetch(`https://chayns2.tobit.com/SiteSearchApi/location/search/${searchStringState}/?skip=${skip}&take=21`);
-            const json = await response.json();
-
-            if (json.length < 21) {
-                setIsListExtendable(false);
-            } else {
-                // removes the 21 item
-                json.length = 20;
-                setIsListExtendable(true);
-            }
-
-            setList((prevList) => prevList.concat(json));
-        } catch (ex) {
-            console.log('parsing failed', ex);
-            setIsListExtendable(false);
-            setList([]);
-        }
-        setIsInitialLoad(false);
-        setIsListLoading(false);
-    };
 
     useEffect(() => {
         if (isFirstUpdate) {
             setIsFirstUpdate(false);
         } else {
-            fetchSitesData(0, true, searchString);
+            dispatch(loadSites(searchString, 0));
         }
     }, [searchString]);
 
@@ -60,7 +33,7 @@ function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, search
         <div className="websiteContainer">
 
             <div className="websiteList">
-                {list.map((e) => (
+                {sitesList.map((e) => (
                     <WebsiteListItem
                         key={e.siteId}
                         name={e.locationName}
@@ -68,17 +41,20 @@ function WebsiteList({ setIsListLoading, setIsInitialLoad, isListLoading, search
                         iconId={e.locationId}
                     />
                 ))}
-                {isListExtendable && !isListLoading && (
+                {isExtendable && !isLoading && (
                     <Button
                         className="extendButton"
-                        onClick={() => fetchSitesData(list.length, false, searchString)}
+                        onClick={() => {
+                            dispatch(loadSites(searchString, 20 * extendedCounter));
+                            setExtendedCounter(extendedCounter + 1);
+                        }}
                     >
                         Mehr
                     </Button>
                 )}
             </div>
 
-            {isListLoading && (
+            {isLoading && (
                 <SmallWaitCursor
                     className="waitCursor"
                     show

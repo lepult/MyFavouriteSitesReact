@@ -2,16 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from 'chayns-components/lib';
 import './SearchBox.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadSites } from '../../../redux-modules/actions/siteListActions';
 
 
-function SearchBox({ setSearchString }) {
+function SearchBox() {
+    const dispatch = useDispatch();
+    const oldSearchString = useSelector((state) => state.sites.searchString);
+
     const [newSearch, setNewSearch] = useState();
     const [myVar, setMyVar] = useState();
 
     function searchSetTimeout() {
         clearTimeout(myVar);
         setMyVar(setTimeout(() => {
-            setSearchString(newSearch);
+            if (oldSearchString !== newSearch) dispatch(loadSites(newSearch));
         }, 750));
     }
 
@@ -27,10 +32,7 @@ function SearchBox({ setSearchString }) {
                 className="searchInput"
                 value={newSearch}
                 placeholder="Suche"
-                onChange={(value) => {
-                    setNewSearch(value);
-                    // setSearchString(value);
-                }}
+                onChange={(value) => setNewSearch(value)}
             />
             <i
                 className="fal fa-search searchIcon"

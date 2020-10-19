@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
-import siteReducer from './SiteReducer';
-import groupReducer from './GroupReducer';
+import sitesReducer from './sitesReducer';
+
 
 export default combineReducers({
-    siteReducer,
-    groupReducer
+    sites: sitesReducer,
 });
