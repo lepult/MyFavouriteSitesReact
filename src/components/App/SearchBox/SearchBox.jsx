@@ -17,7 +17,7 @@ function SearchBox() {
         clearTimeout(myVar);
         setMyVar(setTimeout(() => {
             if (oldSearchString !== newSearch) dispatch(loadSites(newSearch));
-        }, 750));
+        }, 500));
     }
 
     useEffect(() => {

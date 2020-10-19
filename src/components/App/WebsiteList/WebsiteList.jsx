@@ -24,7 +24,7 @@ const WebsiteList = () => {
                 {list.map((e) => (
                     <WebsiteListItem
                         key={e.siteId}
-                        name={e.locationName}
+                        name={e.appstoreName}
                         linkId={e.siteId}
                         iconId={e.locationId}
                     />

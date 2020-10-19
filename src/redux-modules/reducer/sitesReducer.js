@@ -1,4 +1,4 @@
-import { RESET_SITES, ADD_SITES } from '../actions/siteListActions';
+import { RESET_SITES, START_ADD_SITES, END_ADD_SITES } from '../actions/siteListActions';
 
 const initialState = {
     list: [],
@@ -10,11 +10,19 @@ const initialState = {
 const sitesReducer = (state = initialState, action) => {
     switch (action.type) {
         case RESET_SITES:
+            console.log(action.searchString);
             return {
                 ...initialState,
-                searchString: action.payload,
+                searchString: (action.searchString === '')
+                    ? initialState.searchString
+                    : action.searchString,
             };
-        case ADD_SITES:
+        case START_ADD_SITES:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case END_ADD_SITES:
             return {
                 ...state,
                 list: [...state.list, ...action.payload.slice(0, 20)],
