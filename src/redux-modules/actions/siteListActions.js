@@ -1,6 +1,3 @@
-export const START_EXTEND_SITES = 'START_EXTEND_SITES';
-
-export const EXTEND_SITES = 'EXTEND_SITES';
 export const RESET_SITES = 'RESET_SITES';
 export const ADD_SITES = 'ADD_SITES';
 
@@ -19,9 +16,11 @@ export const loadSites = (searchString = 'Ahaus', skip = 0, take = 21) => async 
     if (skip === 0) {
         dispatch(resetSites(searchString));
     }
-    const response = await fetch(`https://chayns2.tobit.com/SiteSearchApi/location/search/${searchString}/?skip=${skip}&take=${take}`);
+    const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchString}&Skip=${skip}&Take=${take}`);
     if (response.status === 200) {
         const json = await response.json();
+        console.log(json.Data);
+
         dispatch(addSites(json.Data));
     } else {
         dispatch(addSites([]));

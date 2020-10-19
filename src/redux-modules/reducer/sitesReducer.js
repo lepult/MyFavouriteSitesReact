@@ -26,4 +26,4 @@ const sitesReducer = (state = initialState, action) => {
     }
 };
 
-export default sitesReducer();
+export default sitesReducer;

@@ -3,5 +3,5 @@ import sitesReducer from './sitesReducer';
 
 
 export default combineReducers({
-    sites: sitesReducer,
+    sitesReducer,
 });

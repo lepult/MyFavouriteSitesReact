@@ -8,7 +8,7 @@ import { loadSites } from '../../../redux-modules/actions/siteListActions';
 
 function SearchBox() {
     const dispatch = useDispatch();
-    const oldSearchString = useSelector((state) => state.sites.searchString);
+    const oldSearchString = useSelector((state) => state.searchString);
 
     const [newSearch, setNewSearch] = useState();
     const [myVar, setMyVar] = useState();
