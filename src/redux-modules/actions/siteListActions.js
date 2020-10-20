@@ -1,11 +1,12 @@
+import { isNullOrWhiteSpace } from 'chayns-components/lib/utils/is';
+
 export const RESET_SITES = 'RESET_SITES';
 export const START_ADD_SITES = 'START_ADD_SITES';
 export const END_ADD_SITES = 'END_ADD_SITES';
 
 
-export const resetSites = (searchString) => ({
+export const resetSites = () => ({
     type: RESET_SITES,
-    searchString,
 });
 
 export const startAddSites = (data) => ({
@@ -17,20 +18,30 @@ export const endAddSites = (data) => ({
     payload: data,
 });
 
-export const loadSites = (searchString = 'Ahaus', skip = 0, take = 21) => async (dispatch, getState) => {
+export const loadSites = (searchString, skip = 0, take = 21) => async (dispatch, getState) => {
     if (skip === 0) {
-        dispatch(resetSites(searchString));
+        dispatch(resetSites());
     }
     dispatch(startAddSites());
 
-    const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchString}&Skip=${skip}&Take=${take}`);
+    const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${
+        isNullOrWhiteSpace(searchString)
+            ? 'Ahaus'
+            : searchString
+    }&Skip=${skip}&Take=${take}`);
 
     if (response.status === 200) {
         const json = await response.json();
+        if (skip === 0) {
+            dispatch(resetSites());
+        }
         dispatch(endAddSites(json.Data === null
             ? []
             : json.Data));
     } else {
+        if (skip === 0) {
+            dispatch(resetSites());
+        }
         dispatch(endAddSites([]));
     }
 };

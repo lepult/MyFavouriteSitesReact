@@ -2,7 +2,7 @@ import { RESET_SITES, START_ADD_SITES, END_ADD_SITES } from '../actions/siteList
 
 const initialState = {
     list: [],
-    isLoading: false,
+    isLoading: true,
     isExtendable: true,
     searchString: 'Ahaus',
 };
@@ -13,9 +13,6 @@ const sitesReducer = (state = initialState, action) => {
             console.log(action.searchString);
             return {
                 ...initialState,
-                searchString: (action.searchString === '')
-                    ? initialState.searchString
-                    : action.searchString,
             };
         case START_ADD_SITES:
             return {
