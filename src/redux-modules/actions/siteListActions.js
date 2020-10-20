@@ -7,9 +7,11 @@ export const startLoadSites = (data) => ({
     type: START_LOAD_SITES,
     payload: data,
 });
-export const endLoadSites = (data, skip) => ({
+export const endLoadSites = (data, ids, entities, skip) => ({
     type: END_LOAD_SITES,
     payload: data,
+    ids,
+    entities,
     skip,
 });
 
@@ -26,10 +28,22 @@ export const loadSites = (searchString, skip = 0, take = 21) => async (dispatch)
     if (response.status === 200) {
         const json = await response.json();
 
+        const ids = [];
+        const entities = {};
+
+        json.Data.forEach((item) => {
+            const { siteId } = item;
+            ids.push(siteId);
+
+            entities[siteId] = item;
+        });
+
         dispatch(endLoadSites(
             json.Data === null
                 ? []
                 : json.Data,
+            ids,
+            entities,
             skip,
         ));
     } else {

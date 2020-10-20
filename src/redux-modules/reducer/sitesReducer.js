@@ -1,10 +1,11 @@
 import { END_LOAD_SITES, START_LOAD_SITES } from '../actions/siteListActions';
 
-const initialState = {
-    list: [],
+export const initialState = {
     isLoading: true,
     isExtendable: true,
     searchString: 'Ahaus',
+    ids: [],
+    entities: {},
 };
 
 const sitesReducer = (state = initialState, action) => {
@@ -17,11 +18,14 @@ const sitesReducer = (state = initialState, action) => {
         case END_LOAD_SITES:
             return {
                 ...state,
-                list: action.skip === 0
-                    ? action.payload.slice(0, 20)
-                    : [...state.list, ...action.payload.slice(0, 20)],
+                ids: action.skip === 0
+                    ? action.ids.slice(0, 20)
+                    : [...state.ids, ...action.ids.slice(0, 20)],
                 isLoading: false,
                 isExtendable: action.payload.length === 21,
+                entities: action.skip === 0
+                    ? action.entities
+                    : { ...state.entities, ...action.entities },
             };
         default:
             return state;
