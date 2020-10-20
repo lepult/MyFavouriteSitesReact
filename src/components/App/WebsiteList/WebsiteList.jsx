@@ -8,7 +8,7 @@ import './WebsiteList.scss';
 import { loadSites } from '../../../redux-modules/actions/siteListActions';
 
 const WebsiteList = () => {
-    const { searchString, list, isExtendable, isLoading } = useSelector((state) => state.sitesReducer, shallowEqual);
+    const { searchString, ids, isExtendable, isLoading } = useSelector((state) => state.sitesReducer, shallowEqual);
     const dispatch = useDispatch();
 
     const [extendedCounter, setExtendedCounter] = useState(1);
@@ -21,12 +21,10 @@ const WebsiteList = () => {
         <div className="websiteContainer">
 
             <div className="websiteList">
-                {list.map((e) => (
+                {ids.map((e) => (
                     <WebsiteListItem
-                        key={e.siteId}
-                        name={e.appstoreName}
-                        linkId={e.siteId}
-                        iconId={e.locationId}
+                        key={e}
+                        id={e}
                     />
                 ))}
                 {isExtendable && !isLoading && (
