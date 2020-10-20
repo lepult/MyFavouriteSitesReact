@@ -1,30 +1,31 @@
-import { RESET_SITES, START_ADD_SITES, END_ADD_SITES } from '../actions/siteListActions';
+import { END_LOAD_SITES, START_LOAD_SITES } from '../actions/siteListActions';
 
-const initialState = {
-    list: [],
+export const initialState = {
     isLoading: true,
     isExtendable: true,
     searchString: 'Ahaus',
+    ids: [],
+    entities: {},
 };
 
 const sitesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case RESET_SITES:
-            console.log(action.searchString);
-            return {
-                ...initialState,
-            };
-        case START_ADD_SITES:
+        case START_LOAD_SITES:
             return {
                 ...state,
                 isLoading: true,
             };
-        case END_ADD_SITES:
+        case END_LOAD_SITES:
             return {
                 ...state,
-                list: [...state.list, ...action.payload.slice(0, 20)],
+                ids: action.skip === 0
+                    ? action.ids.slice(0, 20)
+                    : [...state.ids, ...action.ids.slice(0, 20)],
                 isLoading: false,
                 isExtendable: action.payload.length === 21,
+                entities: action.skip === 0
+                    ? action.entities
+                    : { ...state.entities, ...action.entities },
             };
         default:
             return state;

@@ -1,28 +1,23 @@
 import { isNullOrWhiteSpace } from 'chayns-components/lib/utils/is';
 
-export const RESET_SITES = 'RESET_SITES';
-export const START_ADD_SITES = 'START_ADD_SITES';
-export const END_ADD_SITES = 'END_ADD_SITES';
+export const START_LOAD_SITES = 'START_LOAD_SITES';
+export const END_LOAD_SITES = 'END_LOAD_SITES';
 
-
-export const resetSites = () => ({
-    type: RESET_SITES,
-});
-
-export const startAddSites = (data) => ({
-    type: START_ADD_SITES,
+export const startLoadSites = (data) => ({
+    type: START_LOAD_SITES,
     payload: data,
 });
-export const endAddSites = (data) => ({
-    type: END_ADD_SITES,
+export const endLoadSites = (data, ids, entities, skip) => ({
+    type: END_LOAD_SITES,
     payload: data,
+    ids,
+    entities,
+    skip,
 });
 
-export const loadSites = (searchString, skip = 0, take = 21) => async (dispatch, getState) => {
-    if (skip === 0) {
-        dispatch(resetSites());
-    }
-    dispatch(startAddSites());
+export const loadSites = (searchString, skip = 0, take = 21) => async (dispatch) => {
+
+    dispatch(startLoadSites());
 
     const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${
         isNullOrWhiteSpace(searchString)
@@ -32,16 +27,26 @@ export const loadSites = (searchString, skip = 0, take = 21) => async (dispatch,
 
     if (response.status === 200) {
         const json = await response.json();
-        if (skip === 0) {
-            dispatch(resetSites());
-        }
-        dispatch(endAddSites(json.Data === null
-            ? []
-            : json.Data));
+
+        const ids = [];
+        const entities = {};
+
+        json.Data.forEach((item) => {
+            const { siteId } = item;
+            ids.push(siteId);
+
+            entities[siteId] = item;
+        });
+
+        dispatch(endLoadSites(
+            json.Data === null
+                ? []
+                : json.Data,
+            ids,
+            entities,
+            skip,
+        ));
     } else {
-        if (skip === 0) {
-            dispatch(resetSites());
-        }
-        dispatch(endAddSites([]));
+        dispatch(endLoadSites([]));
     }
 };
