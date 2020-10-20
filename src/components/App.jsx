@@ -1,5 +1,6 @@
 import { hot } from 'react-hot-loader/root';
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 // Components
 import Headline from './App/Header/Headline';
@@ -8,17 +9,13 @@ import Intro from './App/Header/Intro';
 import WebsiteList from './App/WebsiteList/WebsiteList';
 import Form from './App/Form/Form';
 import './App.scss';
-import { useSelector } from 'react-redux';
 
-// We use PureComponent instead of Component because it handles the shouldComponentUpdate method for us.
-// If we want to define our own shouldComponentUpdate logic we have to use Component instead of PureComponent.
 function App() {
-
     const { isLoading } = useSelector((state) => state.sitesReducer);
     const [firstLoading, setFirstLoading] = useState(true);
 
     useEffect(() => {
-        if(firstLoading === true && isLoading === false) {
+        if (firstLoading === true && isLoading === false) {
             setFirstLoading(false);
         }
     }, [isLoading]);

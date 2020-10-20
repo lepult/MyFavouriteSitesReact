@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button, SmallWaitCursor } from 'chayns-components/lib';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import WebsiteListItem from './WebsiteListItem/WebsiteListItem';
 import './WebsiteList.scss';
 import { loadSites } from '../../../redux-modules/actions/siteListActions';
 
 const WebsiteList = () => {
-    const { searchString, list, isExtendable, isLoading } = useSelector((state) => state.sitesReducer);
+    const { searchString, ids, isExtendable, isLoading } = useSelector((state) => state.sitesReducer, shallowEqual);
     const dispatch = useDispatch();
 
     const [extendedCounter, setExtendedCounter] = useState(1);
@@ -21,12 +21,10 @@ const WebsiteList = () => {
         <div className="websiteContainer">
 
             <div className="websiteList">
-                {list.map((e) => (
+                {ids.map((e) => (
                     <WebsiteListItem
-                        key={e.siteId}
-                        name={e.appstoreName}
-                        linkId={e.siteId}
-                        iconId={e.locationId}
+                        key={e}
+                        id={e}
                     />
                 ))}
                 {isExtendable && !isLoading && (
