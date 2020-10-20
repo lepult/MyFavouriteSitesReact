@@ -16,7 +16,7 @@ const WebsiteList = () => {
     useEffect(() => {
         dispatch(loadSites(searchString, 0));
     }, []);
-    // const websiteListItems = list.map(() => <WebsiteListItem/>);
+
     return (
         <div className="websiteContainer">
 

@@ -15,6 +15,13 @@ import { useSelector } from 'react-redux';
 function App() {
 
     const { isLoading } = useSelector((state) => state.sitesReducer);
+    const [firstLoading, setFirstLoading] = useState(true);
+
+    useEffect(() => {
+        if(firstLoading === true && isLoading === false) {
+            setFirstLoading(false);
+        }
+    }, [isLoading]);
 
     return (
         <>
@@ -28,7 +35,7 @@ function App() {
                 mithilfe des Formulars unten."
             />
             <WebsiteList/>
-            {!isLoading
+            {!firstLoading
                 && <Form/>}
         </>
     );
